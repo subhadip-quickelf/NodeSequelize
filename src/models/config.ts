@@ -1,10 +1,17 @@
 import { Sequelize } from "sequelize";
 
-const sequelize: Sequelize = new Sequelize("node_sequelize", "root", "root", {
-	host: "localhost",
-	port: 3300,
-	dialect: "mysql",
-});
+console.log(process.env.DATABASE_NAME);
+
+const sequelize: Sequelize = new Sequelize(
+	process.env.DATABASE_NAME || "",
+	process.env.DATABASE_USER || "",
+	process.env.DATABASE_PASS || "",
+	{
+		host: process.env.DATABASE_HOST,
+		port: Number(process.env.DATABASE_PORT),
+		dialect: "mysql",
+	}
+);
 
 sequelize
 	.authenticate()
